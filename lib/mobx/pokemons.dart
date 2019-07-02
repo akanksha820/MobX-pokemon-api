@@ -18,14 +18,17 @@ abstract class _PokemonList with Store {
 
   @observable
   bool condition = false;
-
+  @observable
+  Pokemon pokemon = Pokemon();
   @action
   setLoading(bool val) {
     status = val;
   }
 
-  @observable
-  Pokemon pokemon = Pokemon();
+  @action
+  setConditionStatus(bool val) {
+    condition = val;
+  }
 
   @action
   getPokemons() async {
@@ -36,15 +39,9 @@ abstract class _PokemonList with Store {
   }
 
   @action
-  setloading(bool val) {
-    print("got the data");
-    condition = val;
-  }
-
-  @action
   getPokemon(url) async {
     pokemon = Pokemon.fromJson(await Api.getRequest(url));
     print(pokemon.name);
-    setloading(true);
+    setConditionStatus(true);
   }
 }

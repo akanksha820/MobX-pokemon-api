@@ -33,26 +33,30 @@ class MyHomeState extends State<Home> {
                   shrinkWrap: true,
                   itemCount: poke.pokemons.results.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                        elevation: 4,
-                        child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: Column(
-                            children: <Widget>[
-                              Text(poke.pokemons.results[index].name),
-                              RaisedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ShowPokemon(url : poke.pokemons.results[index].url)),
-                                  );
-                                },
-                                child: Text("Know More"),
-                              )
-                            ],
-                          ),
-                        ));
+                    return Observer(
+                      builder: (_) => Card(
+                          elevation: 4,
+                          child: Container(
+                            margin: EdgeInsets.all(10),
+                            child: Column(
+                              children: <Widget>[
+                                Text(poke.pokemons.results[index].name),
+                                RaisedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ShowPokemon(
+                                              url: poke.pokemons.results[index]
+                                                  .url)),
+                                    );
+                                  },
+                                  child: Text("Know More"),
+                                )
+                              ],
+                            ),
+                          )),
+                    );
                   },
                 )
               : CircularProgressIndicator(),
